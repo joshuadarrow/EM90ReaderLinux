@@ -1,0 +1,18 @@
+
+# Setup (requires admin once)
+1. Create udev rule as root:
+
+sudo nano /etc/udev/rules.d/99-em90.rules
+
+Add:
+
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="28e9", ATTRS{idProduct}=="028a", GROUP="plugdev", MODE="0660"
+
+2. Reload rules and replug device:
+
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+
+3. Add your user to plugdev:
+
+sudo usermod -aG plugdev $USER
